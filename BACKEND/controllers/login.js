@@ -5,11 +5,19 @@ async function login (req, res){
     if (!login || !senha){
         return res.json ({
             status: "false",
-            mensagem: "LOGIN OU SENHA INVALIDOS!"
+            mensagem: "PREENCHA TODOS OS CAMPOS!"
         });
     };
     try{
-    var resultado_consulta = await db.query(`SELECT * FROM usuarios WHERE login = '${login}'`);
+    var resultado_consulta = await db.query(`SELECT
+         usuarios.login,
+         usuarios.cargo,
+         usuarios.senha,
+         equipes.nome AS equipe
+         FROM usuarios 
+         JOIN equipes
+         ON usuarios.equipe_id = equipes.id
+         WHERE login = '${login}'`);
     console.log(resultado_consulta.rows)
 
     if ( resultado_consulta.rows.length ===0){
@@ -36,7 +44,7 @@ async function login (req, res){
         usuario: usuario.login,
         senha: usuario.senha,
         cargo: usuario.cargo,
-        equipe: usuario.equipe_id
+        equipe: usuario.equipe
    });
    }
    catch (erro){
