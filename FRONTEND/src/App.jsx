@@ -25,9 +25,9 @@ function App(){
         <h1>SISTEMA ESTRELAR</h1>
         <p>Estrelar Consultoria</p>
 
-        <label>USUARIO</label>
+        <label>USUARIO:</label>
         <input type="text" placeholder="Ex: Estrelar.seu_nome" onChange={(event) =>{SetLogin(event.target.value)}} />
-        <label>SENHA</label>
+        <label>SENHA:</label>
         <input type="password" placeholder="Digite sua senha!" onChange={(event) =>{setSenha(event.target.value)}}/>
         <button onClick={login_f}>ENTRAR</button>
 

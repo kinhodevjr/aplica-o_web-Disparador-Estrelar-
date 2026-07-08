@@ -1,7 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #0A0A0A;
+  --panel: #161616;
+  --panel-2: #1C1C1C;
+  --border: #262626;
+  --border-strong: #333;
+  --text: #F5F5F5;
+  --text-dim: #8A8A8A;
+  --text-mute: #5A5A5A;
+  --accent: #FFEC00;
+  --accent-glow: rgba(255, 236, 0, 0.15);
+  --danger: #FF5454;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
@@ -9,8 +29,45 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000000;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  position: relative;
+  overflow: hidden;
+}
+
+/* ============ CAMADA DE FUNDO ============ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, #000 40%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  width: 900px; height: 900px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,236,0,0.08) 0%, transparent 60%);
+  top: -300px; left: -250px;
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatGlow 14s ease-in-out infinite alternate;
+}
+
+@keyframes floatGlow {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(80px,60px) scale(1.1); }
 }
 
 #root {
@@ -18,93 +75,117 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 2;
 }
 
+/* ============ CARD ============ */
 div {
-  background-color: #0d0d0d;
-  padding: 40px 70px;
-  border-radius: 10px;
-  border: 1px solid #2a2a2a;
+  background: var(--panel);
+  padding: 44px 48px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
   width: 100%;
-  max-width: 520px;
+  max-width: 420px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,0.6);
+  opacity: 0;
+  animation: riseIn .8s .1s cubic-bezier(.2,.7,.2,1) forwards;
 }
 
 h1 {
-  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
   font-size: 26px;
+  letter-spacing: -0.02em;
+  color: var(--text);
   margin-bottom: 8px;
-  letter-spacing: 1px;
-}
-
-h1::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 3px;
-  background-color: #ffd700;
-  margin: 10px auto 0;
 }
 
 p {
-  color: #ffd700;
-  font-size: 13px;
-  letter-spacing: 2px;
-  margin-bottom: 30px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent);
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  margin-bottom: 30px;
 }
 
+/* ============ CAMPOS ============ */
 label {
-  color: #ffffff;
-  font-size: 13px;
   align-self: flex-start;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-mute);
   margin-bottom: 6px;
   margin-top: 14px;
-  letter-spacing: 0.5px;
 }
 
 input {
   width: 100%;
-  padding: 12px 14px;
-  border: 1px solid #333;
-  border-radius: 6px;
-  background-color: #1a1a1a;
-  color: #ffffff;
-  font-size: 14px;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  color: var(--text);
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: border-color .25s, background .25s, box-shadow .25s;
 }
 
 input::placeholder {
-  color: #666;
+  color: var(--text-mute);
+}
+
+input:hover {
+  border-color: var(--border-strong);
 }
 
 input:focus {
-  border-color: #ffd700;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-glow);
 }
 
+/* ============ BOTÃO ============ */
 button {
   width: 100%;
   margin-top: 26px;
-  padding: 12px;
-  background-color: #ffd700;
-  color: #000000;
-  font-weight: bold;
-  font-size: 14px;
-  letter-spacing: 1px;
+  padding: 14px 20px;
+  background: var(--accent);
+  color: #000;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 14.5px;
+  letter-spacing: 0.01em;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: transform .2s, box-shadow .3s, background .2s;
+  box-shadow: 0 10px 30px -10px var(--accent-glow);
 }
 
 button:hover {
-  background-color: #e6c200;
+  background: #FFF5A0;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -10px rgba(255, 236, 0, 0.35);
 }
 
 button:active {
-  transform: scale(0.98);
+  transform: translateY(0);
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  div { padding: 36px 28px; }
+  h1 { font-size: 22px; }
 }
