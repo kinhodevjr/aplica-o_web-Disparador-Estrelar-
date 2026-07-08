@@ -1,37 +1,57 @@
-import "./App.css";
+import "./App.css"
 import { useState } from "react";
-function App(){
-  const [login, SetLogin] =  useState("")
+function App (){
+  const [login, setLogin] = useState("")
   const [senha, setSenha] = useState("")
-  async function login_f() {
-    console.log(login),
-    console.log(senha)
-    const dados_api = await fetch("http://localhost:3000/login",{
-      method: "POST",
-      headers: {
-        "content-Type":"application/json"
-      },
-      body: JSON.stringify({
-        login: login,
-        senha: senha
-      })
-    })
+  const [mensagem, setmensagem] = useState("")
+  
+  
+    async function user_login() {
+        console.log(login)
+        console.log(senha)
 
-    const api = await dados_api.json()
-    console.log(api)
-  }
+          const api = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+                "content-Type":"application/json"
+              },
+            body: JSON.stringify({
+              login: login,
+              senha: senha
+            })
+          });
+
+          const dados = await api.json()
+          console.log(dados)
+
+          setmensagem(dados.mensagem)
+           
+    }
+
   return(
       <div>
-        <h1>SISTEMA ESTRELAR</h1>
-        <p>Estrelar Consultoria</p>
 
-        <label>USUARIO:</label>
-        <input type="text" placeholder="Ex: Estrelar.seu_nome" onChange={(event) =>{SetLogin(event.target.value)}} />
-        <label>SENHA:</label>
-        <input type="password" placeholder="Digite sua senha!" onChange={(event) =>{setSenha(event.target.value)}}/>
-        <button onClick={login_f}>ENTRAR</button>
+        <h1>
+          ESTRELAR CONSULTORIA
+        </h1>
+
+        <p>
+          SISTEMA ESTRELAR
+        </p>
+
+        <label>Usuario:</label><br />
+        <input type="text" placeholder="Ex: Estrelar.seu nome" onChange={(event) =>{
+          setLogin(event.target.value)
+        }}/><br />
+        <label>Senha:</label><br />
+        <input type="password" placeholder="digite sua senha" onChange={(event) =>{
+          setSenha(event.target.value)}}/> <br />
+        <button onClick={user_login}>ENTRAR</button><br />
+        <p>{mensagem}</p>
+          
+         <p>Desenvolvido por: Marcos</p>
 
       </div>
-   )
+  )
 }
 export default App;
