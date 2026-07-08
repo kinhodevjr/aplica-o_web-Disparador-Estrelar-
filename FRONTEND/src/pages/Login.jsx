@@ -33,11 +33,11 @@ function Login(){
         <p>Sistema Estrelar</p>
 
         <label>USUARIO: </label>
-        <input type="text" placeholder="Ex: Estrelar.SEU_NOME" onChange={(event) =>{setLogin(event.target.value)}} />
+        <input type="text" placeholder="Digite seu login" onChange={(event) =>{setLogin(event.target.value)}} />
         <label>SENHA: </label>
         <input type="password" placeholder="Digite sua senha" onChange={(event)=>{setSenha(event.target.value)}}></input>
         <button onClick={user_login}>ENTRAR</button><br />
-        <p>desenvolvido por: Estrelar Consultoria (equipe de T.i)</p>
+        <p>desenvolvido por:<p /> <p></p>Estrelar Consultoria (equipe de T.i)</p>
       </div>
   )
 };
