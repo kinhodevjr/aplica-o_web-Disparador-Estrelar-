@@ -1,6 +1,6 @@
 function Consultor_tela(){
     return(
-        <h1>Bem-vindo, !</h1>
+        <h1>Bem-vindo, Consultor! </h1>
     )
 };
 

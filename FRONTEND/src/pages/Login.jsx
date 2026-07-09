@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom"
 function Login(){
     const [login, setLogin] = useState("");
     const [senha, setSenha] = useState("");
+    const [mensagem, setMensagem] = useState("");
     const navigate = useNavigate();
    
     async function user_login() {
@@ -21,9 +22,14 @@ function Login(){
 
         const dados = await api.json()
         console.log(dados)
+        setMensagem(dados.mensagem)
 
         if (dados.cargo === "Consultor"){
             navigate("/consultor")
+        }
+
+        if (dados.cargo === "Gestor"){
+            navigate("/admin")
         }
 
     }
@@ -37,6 +43,7 @@ function Login(){
         <label>SENHA: </label>
         <input type="password" placeholder="Digite sua senha" onChange={(event)=>{setSenha(event.target.value)}}></input>
         <button onClick={user_login}>ENTRAR</button><br />
+        <p className="mensagem_erro">{mensagem}</p>
         <p>desenvolvido por:<p /> <p></p>Estrelar Consultoria (equipe de T.i)</p>
       </div>
   )

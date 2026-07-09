@@ -21,7 +21,7 @@ async function login (req, res){
     console.log(resultado_consulta.rows)
 
     if ( resultado_consulta.rows.length ===0){
-        return res.json({
+        return res.status(401).json({
             status: "false",
             mensagem: "USUARIO NAO EXISTE!"
         });
