@@ -51,7 +51,7 @@ function Login(){
         <button onClick={user_login}>ENTRAR</button><br />
         <p className="mensagem_erro">{mensagem}</p>
         <p className="referencia">Desenvolvido por:</p>
-        <p >EQUIPE DE TI: ISABELY E MARCOS</p>
+        <p >ISABELY E MARCOS</p>
       </div>
   )
 };
