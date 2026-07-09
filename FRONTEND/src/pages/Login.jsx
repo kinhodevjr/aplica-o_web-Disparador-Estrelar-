@@ -8,30 +8,29 @@ function Login(){
     const navigate = useNavigate();
    
     async function user_login() {
-         console.log(login)
+        console.log(login)
         console.log(senha)
 
-            const api = await fetch("http://localhost:3000/login", {
-            method: "POST",
-            headers: {"content-Type":"application/json"},
-            body: JSON.stringify({
-                login: login,
-                senha: senha
-            })
-        })
+                const api = await fetch("http://localhost:3000/login", {
+                    method: "POST",
+                    headers: {"content-Type":"application/json"},
+                    body: JSON.stringify({
+                    login: login,
+                    senha: senha
+                    })
+                })
 
-        const dados = await api.json()
-        console.log(dados)
-        setMensagem(dados.mensagem)
+                        const dados = await api.json()
+                        console.log(dados)
+                        setMensagem(dados.mensagem)
 
-        if (dados.cargo === "Consultor"){
-            navigate("/consultor")
-        }
+                            if (dados.cargo === "Consultor"){
+                                navigate("/consultor")
+                            }
 
-        if (dados.cargo === "Gestor"){
-            navigate("/admin")
-        }
-
+                            if (dados.cargo === "Gestor"){
+                                navigate("/admin")
+                            }
     }
   return(
       <div>
