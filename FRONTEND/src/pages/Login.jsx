@@ -1,15 +1,15 @@
 import "./Login.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {useNavigate} from "react-router-dom"
+import {AuthContext} from "../contexts/AuthContext"
 function Login(){
     const [login, setLogin] = useState("");
     const [senha, setSenha] = useState("");
     const [mensagem, setMensagem] = useState("");
     const navigate = useNavigate();
+    const {setUsuario} = useContext(AuthContext);
    
     async function user_login() {
-        console.log(login)
-        console.log(senha)
             try{
                 const api = await fetch("http://localhost:3000/login", {
                     method: "POST",
@@ -23,6 +23,7 @@ function Login(){
                         const dados = await api.json()
                         console.log(dados)
                         setMensagem(dados.mensagem)
+                        setUsuario(dados)
 
                             if (dados.cargo === "Consultor"){
                                 navigate("/consultor")

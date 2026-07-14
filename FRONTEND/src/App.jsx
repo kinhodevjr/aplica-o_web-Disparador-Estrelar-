@@ -2,9 +2,11 @@ import Login from "./pages/Login";
 import Consultor_tela from "./pages/painel_consultor";
 import Painel_gestor from "./pages/Painel_admin";
 import{BrowserRouter, Routes, Route} from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App (){
   return(
+    <AuthProvider>
    <BrowserRouter>
      <Routes>
       <Route path="/" element={<Login />} 
@@ -15,6 +17,7 @@ function App (){
      </Routes>
   
    </BrowserRouter>
+   </AuthProvider>
   )
 }
 export default App;
