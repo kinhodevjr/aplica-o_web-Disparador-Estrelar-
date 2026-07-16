@@ -5,7 +5,7 @@ function Consultor_tela(){
     console.log(usuario)
     return(
         
-        <h1>Bem-vindo, {usuario.usuario}! </h1>
+    <h1>Seja Bem vindo, {usuario.usuario.split(".")[1]}! || Estamos preparando voce dentro do Sistema!</h1>
     
         
 
