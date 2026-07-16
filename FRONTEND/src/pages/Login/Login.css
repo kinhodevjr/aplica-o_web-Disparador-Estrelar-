@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Reset mínimo e seguro — apenas remove a margem padrão do navegador,
+   não estiliza nada visualmente fora do login */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.login-page {
+  --bg: #0A0A0A;
+  --panel: #141414;
+  --card: #1E1E1E;
+  --card-border: #2A2A2A;
+  --field-bg: #262626;
+  --field-border: #333333;
+  --field-border-strong: #454545;
+
+  --text: #F5F5F5;
+  --text-dim: #9A9A9A;
+  --text-mute: #6A6A6A;
+
+  --yellow: #FFEC00;
+  --yellow-soft: #FFF5A0;
+  --accent-glow: rgba(255, 236, 0, 0.16);
+  --danger: #FF6B6B;
+
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  position: relative;
+  overflow: hidden;
+}
+
+.login-page *,
+.login-page *::before,
+.login-page *::after {
+  box-sizing: border-box;
+}
+
+/* ============ PAINEL ESQUERDO — BRANDING ============ */
+.login-brand {
+  position: relative;
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 56px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,236,0,0.10) 0%, transparent 55%),
+    linear-gradient(160deg, #151515 0%, #0A0A0A 100%);
+  border-right: 1px solid var(--card-border);
+  overflow: hidden;
+}
+
+.login-brand::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 90% 70% at 30% 40%, #000 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 30% 40%, #000 30%, transparent 100%);
+  pointer-events: none;
+}
+
+.login-brand::after {
+  content: "";
+  position: absolute;
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,236,0,0.10) 0%, transparent 60%);
+  bottom: -320px; left: -220px;
+  filter: blur(40px);
+  pointer-events: none;
+  animation: loginFloatGlow 14s ease-in-out infinite alternate;
+}
+
+@keyframes loginFloatGlow {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(60px,-40px) scale(1.08); }
+}
+
+.login-brand-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.login-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: #0A0A0A;
+  flex-shrink: 0;
+}
+
+.login-mark-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+.login-brand-main {
+  position: relative;
+  z-index: 2;
+  max-width: 420px;
+}
+
+.login-brand-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--yellow);
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.login-brand-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.login-brand-title span {
+  color: var(--yellow);
+}
+
+.login-brand-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.login-brand-bottom {
+  position: relative;
+  z-index: 2;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+
+/* ============ PAINEL DIREITO — FORMULÁRIO ============ */
+.login-form-side {
+  flex: 1 1 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: var(--bg);
+  position: relative;
+  z-index: 2;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  animation: loginRiseIn .8s .1s cubic-bezier(.2,.7,.2,1) forwards;
+}
+
+.login-card-header {
+  margin-bottom: 32px;
+}
+
+.login-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.login-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  color: var(--text-dim);
+}
+
+/* ============ CAMPOS ============ */
+.login-field {
+  width: 100%;
+  text-align: left;
+  margin-top: 18px;
+}
+
+.login-field:first-of-type {
+  margin-top: 0;
+}
+
+.login-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-bottom: 6px;
+}
+
+.login-input {
+  width: 100%;
+  background: var(--field-bg);
+  border: 1px solid var(--field-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  color: var(--text);
+  outline: none;
+  transition: border-color .25s, background .25s, box-shadow .25s;
+}
+
+.login-input::placeholder {
+  color: var(--text-mute);
+}
+
+.login-input:hover {
+  border-color: var(--field-border-strong);
+}
+
+.login-input:focus {
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+/* ============ BOTÃO ============ */
+.login-button {
+  width: 100%;
+  margin-top: 28px;
+  padding: 14px 20px;
+  background: var(--yellow);
+  color: #000;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 14.5px;
+  letter-spacing: 0.01em;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .3s, background .2s;
+  box-shadow: 0 10px 30px -10px var(--accent-glow);
+}
+
+.login-button:hover {
+  background: var(--yellow-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -10px rgba(255, 236, 0, 0.35);
+}
+
+.login-button:active {
+  transform: translateY(0);
+}
+
+@keyframes loginRiseIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.login-mensagem-erro {
+  color: var(--danger);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  min-height: 16px;
+  margin-top: 16px;
+}
+
+.login-footer {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--card-border);
+  text-align: center;
+}
+
+.login-referencia {
+  color: var(--text-mute);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.login-creditos {
+  color: var(--text-dim);
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+@media (max-width: 860px) {
+  .login-page {
+    flex-direction: column;
+  }
+  .login-brand {
+    flex: 0 0 auto;
+    padding: 32px 28px;
+    border-right: none;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .login-brand-title {
+    font-size: 26px;
+  }
+  .login-brand-desc {
+    display: none;
+  }
+  .login-form-side {
+    padding: 32px 24px;
+  }
+}

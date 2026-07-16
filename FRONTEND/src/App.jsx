@@ -1,4 +1,4 @@
-import Login from "./pages/Login";
+import Login from "./pages/Login/Login";
 import Consultor_tela from "./pages/painel_consultor";
 import Painel_gestor from "./pages/Painel_admin";
 import{BrowserRouter, Routes, Route} from "react-router-dom";
